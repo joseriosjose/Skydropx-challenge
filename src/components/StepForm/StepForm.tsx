@@ -38,12 +38,12 @@ const StepForm = () => {
     gap: theme.spacing(4),
     justifyContent: "center",
     gridAutoRows: "auto",
-    marginTop: theme.spacing(12),
+    marginTop: theme.spacing(6),
     marginBottom: theme.spacing(12),
     marginRight: theme.spacing(2),
     marginLeft: theme.spacing(2),
     [(theme as Theme).breakpoints.down("md")]: {
-      marginTop: theme.spacing(5),
+      marginTop: theme.spacing(2),
       marginBottom: theme.spacing(9),
       marginRight: theme.spacing(1),
       marginLeft: theme.spacing(1),
@@ -68,7 +68,7 @@ const StepForm = () => {
     },
   }));
 
-  const [currentStep, setcurrentStep] = useState(1);
+  const [currentStep, setcurrentStep] = useState(2);
 
   return (
     <Fragment>
