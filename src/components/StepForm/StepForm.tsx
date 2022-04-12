@@ -7,7 +7,8 @@ import { styled, Theme } from "@mui/material/styles";
 import { Button } from "components";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { Typography } from "@mui/material";
-import DestinationForm from "components/DestinationForm";
+import { DestinationForm, DimensionsForm } from "components";
+import DeliveryOptions from "../DeliveryOptions/DeliveryOptions";
 
 const steps = [
   { id: 0, icono: MapIcon, texto: "destino", subTitle: "Datos de envio" },
@@ -39,9 +40,13 @@ const StepForm = () => {
     gridAutoRows: "auto",
     marginTop: theme.spacing(12),
     marginBottom: theme.spacing(12),
+    marginRight: theme.spacing(2),
+    marginLeft: theme.spacing(2),
     [(theme as Theme).breakpoints.down("md")]: {
       marginTop: theme.spacing(5),
       marginBottom: theme.spacing(9),
+      marginRight: theme.spacing(1),
+      marginLeft: theme.spacing(1),
     },
   }));
 
@@ -49,6 +54,8 @@ const StepForm = () => {
     display: "flex",
     flexWrap: "wrap",
     justifyContent: "space-between",
+    marginRight: theme.spacing(2),
+    marginLeft: theme.spacing(2),
   }));
 
   const StepTitleMovilWrapper = styled(Typography)(({ theme }) => ({
@@ -61,19 +68,14 @@ const StepForm = () => {
     },
   }));
 
-  const [currentStep, setcurrentStep] = useState(0);
+  const [currentStep, setcurrentStep] = useState(1);
 
   return (
     <Fragment>
       <StepsHeaders>
         {steps.map(({ id, icono, texto }) => {
           return (
-            <StepHeader
-              key={`header-${texto}`}
-              icon={icono}
-              text={texto}
-              selected={currentStep === id}
-            />
+            <StepHeader key={`header-${texto}`} icon={icono} text={texto} />
           );
         })}
       </StepsHeaders>

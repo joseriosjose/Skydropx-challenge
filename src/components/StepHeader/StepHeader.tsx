@@ -5,7 +5,7 @@ import { MUIStyledCommonProps } from "@mui/system";
 
 export type StepHeaderProps = {
   theme?: Theme | undefined;
-  selected?: boolean;
+  type?: "completed" | "default" | "selected";
   icon: typeof SvgIcon;
   text: string;
 };
@@ -13,23 +13,45 @@ export type StepHeaderProps = {
 type StepHeaderWrapperProps = MUIStyledCommonProps<Theme> &
   React.ClassAttributes<HTMLDivElement> &
   React.HTMLAttributes<HTMLDivElement> & {
-    selected?: boolean;
+    type?: "completed" | "default" | "selected";
     children: React.ReactNode;
   };
 
+const styles = (theme: Theme) => ({
+  completed: {
+    backgroundColor: theme?.palette.primary.light,
+    color: "#ffffff",
+  },
+  selected: {
+    backgroundColor: theme?.palette.primary.main,
+    ":first-of-type": {
+      borderRadius: "30px 10px 10px 30px",
+    },
+    ":last-child": {
+      borderRadius: "10px 30px 30px 10px",
+    },
+    cursor: "pointer",
+    transform: "scale(1.09)",
+    borderRadius: "12px 12px 12px 12px",
+    color: "#ffffff",
+  },
+  default: {
+    backgroundColor: "white",
+    color: "#B4AFAF",
+  },
+});
+
 const StepHeaderWrapper = styled("div")(
-  ({ theme, selected }: StepHeaderWrapperProps) => ({
-    backgroundColor: selected ? theme?.palette.primary.main : "#FFFFFF",
-    color: selected ? "#ffffff" : "#B4AFAF",
+  ({ theme, type = "default" }: StepHeaderWrapperProps) => ({
     textAlign: "center",
     flex: "auto",
     borderStyle: "solid none solid solid",
     borderColor: "#4e34e15e",
     borderWidth: 2,
-    cursor: selected ? "pointer" : "default",
+
     padding: "8px 5px 5px 5px",
     textTransform: "uppercase",
-    ":first-child": {
+    ":first-of-type": {
       borderRadius: "30px 0px 0px 30px",
     },
     ":last-child": {
@@ -48,13 +70,19 @@ const StepHeaderWrapper = styled("div")(
         display: "none",
       },
     },
+    ...(styles(theme as Theme)[type] || {}),
   })
 );
 
-const StepHeader = ({ icon, text, selected, ...props }: StepHeaderProps) => {
+const StepHeader = ({
+  icon,
+  text,
+  type = "default",
+  ...props
+}: StepHeaderProps) => {
   const Icon = icon;
   return (
-    <StepHeaderWrapper selected={selected}>
+    <StepHeaderWrapper type={type}>
       <Icon />
       <Typography variant="overline"> {text}</Typography>
     </StepHeaderWrapper>
