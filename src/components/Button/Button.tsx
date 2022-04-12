@@ -1,6 +1,5 @@
 import React from "react";
 import { styled, Theme } from "@mui/material/styles";
-import { MUIStyledCommonProps } from "@mui/system";
 import MuiButton from "@mui/material/Button";
 import { ButtonProps } from "@mui/material/Button";
 import { Typography } from "@mui/material";

@@ -54,12 +54,10 @@ const StepHeaderWrapper = styled("div")(
 const StepHeader = ({ icon, text, selected, ...props }: StepHeaderProps) => {
   const Icon = icon;
   return (
-    <Fragment>
-      <StepHeaderWrapper selected={selected}>
-        <Icon />
-        <Typography variant="overline"> {text}</Typography>
-      </StepHeaderWrapper>
-    </Fragment>
+    <StepHeaderWrapper selected={selected}>
+      <Icon />
+      <Typography variant="overline"> {text}</Typography>
+    </StepHeaderWrapper>
   );
 };
 
