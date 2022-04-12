@@ -85,7 +85,7 @@ const StepForm = () => {
       </StepTitleMovilWrapper>
 
       <StepContainerWrapper>
-        <DestinationForm />
+        <DeliveryOptions />
       </StepContainerWrapper>
       <StepActionsWrapper>
         <Button buttonType="secondary" text="Limpiar" />

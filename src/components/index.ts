@@ -14,6 +14,12 @@ export {default as DimensionsForm} from "./DimensionsForm";
 export * from "./DimensionsForm"; 
 export {default as DeliveryOptions} from "./DeliveryOptions";
 export * from "./DeliveryOptions"; 
+export {default as ParcelPreview} from "./ParcelPreview";
+export * from "./ParcelPreview"; 
+export {default as ParcelAddress} from "./ParcelAddress";
+export * from "./ParcelAddress"; 
+
+
 
 
 
