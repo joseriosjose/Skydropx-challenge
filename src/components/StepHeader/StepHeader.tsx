@@ -19,7 +19,7 @@ type StepHeaderWrapperProps = MUIStyledCommonProps<Theme> &
 
 const StepHeaderWrapper = styled("div")(
   ({ theme, selected }: StepHeaderWrapperProps) => ({
-    backgroundColor: selected ? "#4E34E1" : "#FFFFFF",
+    backgroundColor: selected ? theme?.palette.primary.main : "#FFFFFF",
     color: selected ? "#ffffff" : "#B4AFAF",
     textAlign: "center",
     flex: "auto",

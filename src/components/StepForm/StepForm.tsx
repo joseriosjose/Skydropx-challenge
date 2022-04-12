@@ -4,6 +4,8 @@ import MapIcon from "@mui/icons-material/Map";
 import InventoryIcon from "@mui/icons-material/Inventory";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import { styled } from "@mui/material/styles";
+import Button from "components/Button";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
 const steps = [
   { id: 0, icono: MapIcon, texto: "destino" },
@@ -17,7 +19,7 @@ const StepForm = () => {
     flexWrap: "wrap",
     justifyContent: "space-between",
   }));
-  const [currentStep, setcurrentStep] = useState(1);
+  const [currentStep, setcurrentStep] = useState(0);
 
   return (
     <Fragment>
@@ -33,6 +35,13 @@ const StepForm = () => {
           );
         })}
       </StepsHeaders>
+      <Button
+        buttonType="primary"
+        text="Continuar"
+        size="large"
+        endIcon={<ArrowForwardIosIcon />}
+      />
+      <Button buttonType="secondary" text="Continuar" disabled />
     </Fragment>
   );
 };
