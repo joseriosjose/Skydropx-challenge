@@ -22,7 +22,7 @@ const ParcelAddress = ({ indicator, icon, address }: ParcelAddressProps) => {
   const { province, city, address1, zip } = address;
   const Icon = icon;
   return (
-    <TitleInputWrapper item xs={12} md={4}>
+    <TitleInputWrapper item xs={12} md={4.2}>
       <Icon />
       <div>
         <Typography variant="button">{indicator}</Typography>

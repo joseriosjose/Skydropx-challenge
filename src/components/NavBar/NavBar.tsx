@@ -6,6 +6,7 @@ const NavBarWrapper = styled("div")(({ theme }) => ({
   position: "fixed",
   webkitBoxShadow: "0px 0px 30px -18px #4E34E1",
   boxShadow: "0px 0px 30px -18px #4E34E1",
+  zIndex: 2,
   background: "linear-gradient(160deg, #ffffff,#c6bdf9)",
 }));
 

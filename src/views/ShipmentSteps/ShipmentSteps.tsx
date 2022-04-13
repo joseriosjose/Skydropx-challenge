@@ -6,7 +6,7 @@ const ShipmentStepsWrapper = styled("div")(({ theme }) => ({
   margin: "0 auto",
   padding: theme.spacing(20, 2),
   minHeight: "100vh",
-  maxWidth: "800px",
+  maxWidth: "850px",
   [theme.breakpoints.down("md")]: {
     padding: theme.spacing(12, 2),
   },

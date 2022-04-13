@@ -18,6 +18,9 @@ export {default as ParcelPreview} from "./ParcelPreview";
 export * from "./ParcelPreview"; 
 export {default as ParcelAddress} from "./ParcelAddress";
 export * from "./ParcelAddress"; 
+export {default as DeliveryItem} from "./DeliveryItem";
+export * from "./DeliveryItem"; 
+
 
 
 

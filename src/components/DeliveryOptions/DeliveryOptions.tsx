@@ -10,6 +10,8 @@ import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { styled } from "@mui/material/styles";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import { included } from "./rates";
+import DeliveryItem from "../DeliveryItem/DeliveryItem";
 
 const shipmentJson = {
   address_from: {
@@ -49,7 +51,6 @@ const shipmentJson = {
     contents: "Hola",
   },
 };
-
 const AccordionDetailsWrapper = styled(AccordionDetails)(({ theme }) => ({
   marginTop: 10,
   padding: "8px 8px 16px 16px",
@@ -68,29 +69,50 @@ const AccordionSummary = styled((props: AccordionSummaryProps) => (
     transform: "rotate(270deg)",
     color: theme.palette.primary.main,
   },
+  padding: 0,
+  color: "#04142a",
 }));
+
 const DeliveryOptions = () => {
   const { address_from, address_to, parcels } = shipmentJson;
   const parcel = parcels[0];
+
+  //solo las opciones de envio
+  const deliveryOptions = included?.filter(({ type }) => type === "rates");
+
   return (
     <Fragment>
-      <div>
-        <Accordion defaultExpanded elevation={0}>
-          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography>Detalle del paquete</Typography>
-          </AccordionSummary>
-          <AccordionDetailsWrapper>
-            <Grid container spacing={2}>
-              <ParcelPreview
-                address_from={address_from}
-                address_to={address_to}
-                parcel={parcel}
-              />
-            </Grid>
-          </AccordionDetailsWrapper>
-        </Accordion>
-      </div>
-      DeliveryOptions
+      <Accordion defaultExpanded elevation={0}>
+        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+          <Typography variant="overline">Detalle del paquete</Typography>
+        </AccordionSummary>
+        <AccordionDetailsWrapper>
+          <Grid container spacing={2}>
+            <ParcelPreview
+              address_from={address_from}
+              address_to={address_to}
+              parcel={parcel}
+            />
+          </Grid>
+        </AccordionDetailsWrapper>
+      </Accordion>
+      <Typography variant="overline">Paqueteria</Typography>
+      <Grid container spacing={2}>
+        {deliveryOptions?.map(({ id, attributes }) => (
+          <Grid item xs={6} md={4} key={id}>
+            <DeliveryItem
+              key={`opcion${id}`}
+              provider={attributes?.provider as string}
+              service_level={attributes.service_level_name as string}
+              days={attributes.days as number}
+              pricing={attributes.total_pricing as string}
+              currency={attributes.currency_local as string}
+              selected
+              typeChip="default"
+            />
+          </Grid>
+        ))}
+      </Grid>
     </Fragment>
   );
 };
