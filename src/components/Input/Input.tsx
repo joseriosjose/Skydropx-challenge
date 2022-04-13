@@ -51,6 +51,7 @@ const Input = ({
         onChange={onChange}
         value={value}
         name={name}
+        inputProps={{ "data-testid": "InputTest-id" }}
       />
     </ContainerInputWrapper>
   );

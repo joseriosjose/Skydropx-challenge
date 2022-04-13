@@ -10,8 +10,8 @@ describe("Navbar render", () => {
   it("should render a Navbar", () => {
     const { getByTestId } = render(<NavBar data-testid="NavbarTest-id" />);
     expect(getByTestId).not.toBeNull();
-    const todoElement = getByTestId("NavbarTest-id");
-    expect(todoElement).toBeInTheDocument();
-    expect(todoElement).not.toBeUndefined();
+    const navbar = getByTestId("NavbarTest-id");
+    expect(navbar).toBeInTheDocument();
+    expect(navbar).not.toBeUndefined();
   });
 });
