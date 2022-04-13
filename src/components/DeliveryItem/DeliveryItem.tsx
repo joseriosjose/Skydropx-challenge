@@ -51,6 +51,7 @@ const styles = (theme: Theme) => ({
 const CardWrapper = styled(Card)(({ theme, selected }: CardWrapperProps) => ({
   borderRadius: 30,
   padding: 20,
+  maxWidth: 500,
   [(theme as Theme).breakpoints.down("md")]: {
     padding: 5,
   },
@@ -116,7 +117,7 @@ const DeliveryItem = ({
           action={
             <ChipWrapper
               typechip={typechip}
-              label="Recomendacion"
+              label={typechip === "better" ? "Recomendacion" : "Mas rapido"}
               data-testid="ChipTets-id"
             />
           }
