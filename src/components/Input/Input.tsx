@@ -2,9 +2,9 @@ import React from "react";
 import { styled, Theme } from "@mui/material/styles";
 import { SvgIcon, Typography } from "@mui/material";
 import TextField from "@mui/material/TextField";
-import { OutlinedTextFieldProps } from "@mui/material/TextField";
+import { StandardTextFieldProps } from "@mui/material/TextField";
 
-export interface InputWrapperProps extends OutlinedTextFieldProps {
+export interface InputWrapperProps extends StandardTextFieldProps {
   icon: typeof SvgIcon;
 }
 
@@ -28,13 +28,30 @@ const TitleInputWrapper = styled(Typography)(({ theme }) => ({
   color: "#898791",
 }));
 
-const Input = ({ label, placeholder, icon, ...props }: InputWrapperProps) => {
+const Input = ({
+  label,
+  placeholder,
+  icon,
+  onChange,
+  value,
+  name,
+  ...props
+}: InputWrapperProps) => {
   const Icon = icon;
   return (
     <ContainerInputWrapper>
       <Icon />
       <TitleInputWrapper variant="overline">{label}</TitleInputWrapper>
-      <InputWrapper size="medium" placeholder={placeholder} {...props} />
+      <InputWrapper
+        fullWidth
+        size="medium"
+        placeholder={placeholder}
+        {...props}
+        variant="outlined"
+        onChange={onChange}
+        value={value}
+        name={name}
+      />
     </ContainerInputWrapper>
   );
 };
