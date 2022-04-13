@@ -48,7 +48,7 @@ const StepHeaderWrapper = styled("div")(
     borderStyle: "solid none solid solid",
     borderColor: "#4e34e15e",
     borderWidth: 2,
-
+    maxWidth: 500,
     padding: "8px 5px 5px 5px",
     textTransform: "uppercase",
     ":first-of-type": {
