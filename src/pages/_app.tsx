@@ -5,6 +5,9 @@ import type { AppProps } from "next/app";
 import { NavBar } from "components";
 import { CustomThemeProvider } from "providers";
 
+const LOGO_SKYDROPX =
+  "https://skydropx.com/assets/landing5/skydropx_logo-4fb27c0601c3bccddd15cad09e612eb0d777dcdbcebae56c0382a8fe2978dfa9.svg";
+
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
@@ -18,7 +21,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         />
       </Head>
       <CustomThemeProvider>
-        <NavBar />
+        <NavBar urlImg={LOGO_SKYDROPX} />
         <Component {...pageProps} />
       </CustomThemeProvider>
     </>

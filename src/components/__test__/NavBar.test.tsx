@@ -8,7 +8,9 @@ afterEach(() => {
 
 describe("Navbar render", () => {
   it("should render a Navbar", () => {
-    const { getByTestId } = render(<NavBar data-testid="NavbarTest-id" />);
+    const { getByTestId } = render(
+      <NavBar urlImg="" data-testid="NavbarTest-id" />
+    );
     expect(getByTestId).not.toBeNull();
     const navbar = getByTestId("NavbarTest-id");
     expect(navbar).toBeInTheDocument();

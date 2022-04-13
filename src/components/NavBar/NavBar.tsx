@@ -1,5 +1,7 @@
 import React from "react";
 import { styled } from "@mui/material/styles";
+import { Theme } from "@mui/material";
+import { MUIStyledCommonProps } from "@mui/system";
 
 const NavBarWrapper = styled("div")(({ theme }) => ({
   width: "100%",
@@ -18,13 +20,16 @@ const LogoWrapper = styled("img")(({ theme }) => ({
   },
 }));
 
-const LOGO_SKYDROPX =
-  "https://skydropx.com/assets/landing5/skydropx_logo-4fb27c0601c3bccddd15cad09e612eb0d777dcdbcebae56c0382a8fe2978dfa9.svg";
+type NavBarProps = MUIStyledCommonProps<Theme> &
+  React.ClassAttributes<HTMLDivElement> &
+  React.HTMLAttributes<HTMLDivElement> & {
+    urlImg: string;
+  };
 
-const NavBar = ({ ...props }) => {
+const NavBar = ({ urlImg, ...props }: NavBarProps) => {
   return (
     <NavBarWrapper {...props}>
-      <LogoWrapper src={LOGO_SKYDROPX} />
+      <LogoWrapper src={urlImg} />
     </NavBarWrapper>
   );
 };
