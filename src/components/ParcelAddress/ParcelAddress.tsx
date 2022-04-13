@@ -18,11 +18,16 @@ const TitleInputWrapper = styled(Grid)(({ theme }) => ({
   },
 }));
 
-const ParcelAddress = ({ indicator, icon, address }: ParcelAddressProps) => {
+const ParcelAddress = ({
+  indicator,
+  icon,
+  address,
+  ...props
+}: ParcelAddressProps) => {
   const { province, city, address1, zip } = address;
   const Icon = icon;
   return (
-    <TitleInputWrapper item xs={12} md={4.2}>
+    <TitleInputWrapper item xs={12} md={4.2} {...props}>
       <Icon />
       <div>
         <Typography variant="button">{indicator}</Typography>
