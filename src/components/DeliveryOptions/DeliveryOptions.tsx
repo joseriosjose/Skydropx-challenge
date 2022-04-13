@@ -114,7 +114,7 @@ const DeliveryOptions = () => {
               onClick={() => {
                 setdeliverySelected(id);
               }}
-              typeChip="default"
+              typechip="default"
             />
           </Grid>
         ))}

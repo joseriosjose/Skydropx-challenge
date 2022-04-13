@@ -13,21 +13,21 @@ import "moment/locale/es";
 import { styled } from "@mui/material/styles";
 import { MUIStyledCommonProps } from "@mui/system";
 
-type DeliveryItemType = {
+export type DeliveryItemType = {
   provider: string;
   service_level: string;
   days: number;
   pricing: string;
   currency: string;
   selected: boolean;
-  typeChip: "better" | "default" | "faster";
+  typechip: "better" | "default" | "faster";
   onClick: () => void;
 };
 
 type ChipWrapperProps = MUIStyledCommonProps<Theme> &
   React.ClassAttributes<HTMLDivElement> &
   React.HTMLAttributes<HTMLDivElement> & {
-    typeChip: "better" | "default" | "faster";
+    typechip: "better" | "default" | "faster";
   };
 
 type CardWrapperProps = MUIStyledCommonProps<Theme> &
@@ -71,9 +71,9 @@ const CardWrapper = styled(Card)(({ theme, selected }: CardWrapperProps) => ({
 }));
 
 const ChipWrapper = styled(Chip)(
-  ({ theme, typeChip = "default" }: ChipWrapperProps) => ({
+  ({ theme, typechip = "default" }: ChipWrapperProps) => ({
     letterSpacing: 1,
-    ...(styles(theme as Theme)[typeChip] || {}),
+    ...(styles(theme as Theme)[typechip] || {}),
   })
 );
 
@@ -104,15 +104,22 @@ const DeliveryItem = ({
   pricing,
   currency,
   selected,
-  typeChip,
+  typechip,
   onClick,
+  ...props
 }: DeliveryItemType) => {
   const date = new Date();
   return (
-    <CardWrapper selected={selected} onClick={onClick}>
-      {typeChip !== "default" && (
+    <CardWrapper selected={selected} onClick={onClick} {...props}>
+      {typechip !== "default" && (
         <CardHeader
-          action={<ChipWrapper typeChip={typeChip} label="Recomendacion" />}
+          action={
+            <ChipWrapper
+              typechip={typechip}
+              label="Recomendacion"
+              data-testid="ChipTets-id"
+            />
+          }
         />
       )}
 

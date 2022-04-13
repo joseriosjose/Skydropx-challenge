@@ -2,7 +2,7 @@ import { ReactElement } from "react";
 import { ThemeProvider } from "@mui/system";
 import { createTheme } from "@mui/material/styles";
 
-let theme = createTheme({
+export const theme = createTheme({
   palette: {
     primary: {
       main: "#664fe7",
