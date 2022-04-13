@@ -8,9 +8,9 @@ afterEach(() => {
 
 describe("StepHeader render", () => {
   it("should render a StepHeader Active", () => {
-    const { getByTestId } = render(<NavBar data-testid="NavbarTest-id" />);
+    const { getByTestId } = render(<NavBar data-testid="StepHeaderTest-id" />);
     expect(getByTestId).not.toBeNull();
-    const stepHeader = getByTestId("NavbarTest-id");
+    const stepHeader = getByTestId("StepHeaderTest-id");
     expect(stepHeader).toBeInTheDocument();
     expect(stepHeader).not.toBeUndefined();
   });
@@ -18,9 +18,9 @@ describe("StepHeader render", () => {
 
 describe("StepHeader render", () => {
   it("should render a StepHeader inActive", () => {
-    const { getByTestId } = render(<NavBar data-testid="NavbarTest-id" />);
+    const { getByTestId } = render(<NavBar data-testid="StepHeaderTest-id" />);
     expect(getByTestId).not.toBeNull();
-    const stepHeader = getByTestId("NavbarTest-id");
+    const stepHeader = getByTestId("StepHeaderTest-id");
     expect(stepHeader).toBeInTheDocument();
     expect(stepHeader).not.toBeUndefined();
   });

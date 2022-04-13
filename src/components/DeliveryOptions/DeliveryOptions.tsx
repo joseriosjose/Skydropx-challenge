@@ -82,7 +82,6 @@ const DeliveryOptions = () => {
 
   const [deliverySelected, setdeliverySelected] = useState("");
 
-  console.log(deliverySelected);
   return (
     <Fragment>
       <Accordion defaultExpanded elevation={0}>

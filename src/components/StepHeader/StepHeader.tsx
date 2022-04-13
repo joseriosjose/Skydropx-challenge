@@ -82,7 +82,7 @@ const StepHeader = ({
 }: StepHeaderProps) => {
   const Icon = icon;
   return (
-    <StepHeaderWrapper type={type}>
+    <StepHeaderWrapper type={type} {...props}>
       <Icon />
       <Typography variant="overline"> {text}</Typography>
     </StepHeaderWrapper>

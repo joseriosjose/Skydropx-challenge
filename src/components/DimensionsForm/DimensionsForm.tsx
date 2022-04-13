@@ -22,7 +22,6 @@ const DimensionsForm = () => {
     }
   );
 
-  console.log(fields);
   return (
     <Grid container spacing={{ xs: 1, md: 3 }}>
       <Grid item xs={6}>
