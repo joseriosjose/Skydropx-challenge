@@ -21,12 +21,19 @@ type DeliveryItemType = {
   currency: string;
   selected: boolean;
   typeChip: "better" | "default" | "faster";
+  onClick: () => void;
 };
 
 type ChipWrapperProps = MUIStyledCommonProps<Theme> &
   React.ClassAttributes<HTMLDivElement> &
   React.HTMLAttributes<HTMLDivElement> & {
     typeChip: "better" | "default" | "faster";
+  };
+
+type CardWrapperProps = MUIStyledCommonProps<Theme> &
+  React.ClassAttributes<HTMLDivElement> &
+  React.HTMLAttributes<HTMLDivElement> & {
+    selected: boolean;
   };
 
 const styles = (theme: Theme) => ({
@@ -41,7 +48,7 @@ const styles = (theme: Theme) => ({
   default: { display: "none" },
 });
 
-const CardWrapper = styled(Card)(({ theme }) => ({
+const CardWrapper = styled(Card)(({ theme, selected }: CardWrapperProps) => ({
   borderRadius: 30,
   padding: 20,
   [(theme as Theme).breakpoints.down("md")]: {
@@ -49,6 +56,13 @@ const CardWrapper = styled(Card)(({ theme }) => ({
   },
   transition: "all .2s ease-in-out",
   cursor: "pointer",
+  ...(selected
+    ? {
+        backgroundColor: (theme as Theme).palette.primary.light,
+        color: "white",
+        transform: " scale(1.05)",
+      }
+    : {}),
   ":hover": {
     backgroundColor: (theme as Theme).palette.primary.light,
     color: "white",
@@ -91,10 +105,11 @@ const DeliveryItem = ({
   currency,
   selected,
   typeChip,
+  onClick,
 }: DeliveryItemType) => {
   const date = new Date();
   return (
-    <CardWrapper>
+    <CardWrapper selected={selected} onClick={onClick}>
       {typeChip !== "default" && (
         <CardHeader
           action={<ChipWrapper typeChip={typeChip} label="Recomendacion" />}

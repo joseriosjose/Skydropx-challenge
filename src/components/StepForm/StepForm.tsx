@@ -7,8 +7,8 @@ import { styled, Theme } from "@mui/material/styles";
 import { Button } from "components";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { Typography } from "@mui/material";
-import { DestinationForm, DimensionsForm } from "components";
-import DeliveryOptions from "../DeliveryOptions/DeliveryOptions";
+import { DestinationForm, DimensionsForm, DeliveryOptions } from "components";
+import useStep from "hooks/useStep";
 
 const steps = [
   { id: 0, icono: MapIcon, texto: "destino", subTitle: "Datos de envio" },
@@ -26,56 +26,72 @@ const steps = [
   },
 ];
 
+const StepsHeaders = styled("div")(({ theme }) => ({
+  display: "flex",
+  flexWrap: "wrap",
+  justifyContent: "space-between",
+}));
+
+const StepContainerWrapper = styled("div")(({ theme }) => ({
+  display: "grid",
+  gap: theme.spacing(4),
+  justifyContent: "center",
+  gridAutoRows: "auto",
+  marginTop: theme.spacing(6),
+  marginBottom: theme.spacing(12),
+  marginRight: theme.spacing(2),
+  marginLeft: theme.spacing(2),
+  [(theme as Theme).breakpoints.down("md")]: {
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(9),
+    marginRight: theme.spacing(1),
+    marginLeft: theme.spacing(1),
+  },
+}));
+
+const StepActionsWrapper = styled("div")(({ theme }) => ({
+  display: "flex",
+  flexWrap: "wrap",
+  justifyContent: "flex-end",
+  gap: 25,
+  marginRight: theme.spacing(2),
+  marginLeft: theme.spacing(2),
+}));
+
+const StepTitleMovilWrapper = styled(Typography)(({ theme }) => ({
+  display: "none",
+  [(theme as Theme).breakpoints.down("md")]: {
+    display: "block",
+    textAlign: "center",
+    marginTop: theme.spacing(2),
+    color: "#04142a",
+  },
+}));
+
 const StepForm = () => {
-  const StepsHeaders = styled("div")(({ theme }) => ({
-    display: "flex",
-    flexWrap: "wrap",
-    justifyContent: "space-between",
-  }));
-
-  const StepContainerWrapper = styled("div")(({ theme }) => ({
-    display: "grid",
-    gap: theme.spacing(4),
-    justifyContent: "center",
-    gridAutoRows: "auto",
-    marginTop: theme.spacing(6),
-    marginBottom: theme.spacing(12),
-    marginRight: theme.spacing(2),
-    marginLeft: theme.spacing(2),
-    [(theme as Theme).breakpoints.down("md")]: {
-      marginTop: theme.spacing(2),
-      marginBottom: theme.spacing(9),
-      marginRight: theme.spacing(1),
-      marginLeft: theme.spacing(1),
-    },
-  }));
-
-  const StepActionsWrapper = styled("div")(({ theme }) => ({
-    display: "flex",
-    flexWrap: "wrap",
-    justifyContent: "space-between",
-    marginRight: theme.spacing(2),
-    marginLeft: theme.spacing(2),
-  }));
-
-  const StepTitleMovilWrapper = styled(Typography)(({ theme }) => ({
-    display: "none",
-    [(theme as Theme).breakpoints.down("md")]: {
-      display: "block",
-      textAlign: "center",
-      marginTop: theme.spacing(2),
-      color: "#04142a",
-    },
-  }));
-
-  const [currentStep, setcurrentStep] = useState(2);
+  const { currentStep, Component, next, previus } = useStep([
+    DestinationForm,
+    DimensionsForm,
+    DeliveryOptions,
+  ]);
 
   return (
     <Fragment>
       <StepsHeaders>
-        {steps.map(({ id, icono, texto }) => {
+        {steps.map(({ id, icono, texto }, index) => {
           return (
-            <StepHeader key={`header-${texto}`} icon={icono} text={texto} />
+            <StepHeader
+              key={`header-${texto}`}
+              type={
+                index === currentStep
+                  ? "selected"
+                  : index < currentStep
+                  ? "completed"
+                  : "default"
+              }
+              icon={icono}
+              text={texto}
+            />
           );
         })}
       </StepsHeaders>
@@ -85,16 +101,17 @@ const StepForm = () => {
       </StepTitleMovilWrapper>
 
       <StepContainerWrapper>
-        <DestinationForm />
-        <DimensionsForm />
+        <Component />
       </StepContainerWrapper>
       <StepActionsWrapper>
-        <Button buttonType="secondary" text="Limpiar" />
+        {currentStep !== 0 && (
+          <Button buttonType="secondary" text="Regresar" onClick={previus} />
+        )}
         <Button
           buttonType="primary"
           text="Continuar"
           size="large"
-          disabled
+          onClick={next}
           endIcon={<ArrowForwardIosIcon />}
         />
       </StepActionsWrapper>

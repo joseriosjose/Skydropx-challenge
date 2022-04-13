@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import { ParcelPreview } from "components";
 import { Grid } from "@mui/material";
 import Accordion from "@mui/material/Accordion";
@@ -80,6 +80,9 @@ const DeliveryOptions = () => {
   //solo las opciones de envio
   const deliveryOptions = included?.filter(({ type }) => type === "rates");
 
+  const [deliverySelected, setdeliverySelected] = useState("");
+
+  console.log(deliverySelected);
   return (
     <Fragment>
       <Accordion defaultExpanded elevation={0}>
@@ -107,7 +110,10 @@ const DeliveryOptions = () => {
               days={attributes.days as number}
               pricing={attributes.total_pricing as string}
               currency={attributes.currency_local as string}
-              selected
+              selected={deliverySelected === id}
+              onClick={() => {
+                setdeliverySelected(id);
+              }}
               typeChip="default"
             />
           </Grid>
