@@ -11,13 +11,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { GlobalState } from "_redux";
 import { ShipmentState } from "_redux/reducers/Shipment.reducer";
 import { saveDimensions } from "../../_redux/actions/Shipment.actions";
+import { getRates } from "_redux/thunks/Shipment.thunk";
+import { createShipment } from "utils/CreateShipmentUtil";
 
 const validator = handleOnlyNumber(3);
 
 const DimensionsForm = ({ currentStep, next, previus }: StepActionsProps) => {
   const dispatch = useDispatch();
   const {
-    informationParcel: { weight, height, width, length },
+    informationParcel: { weight, height, width, length, zipFrom, zipTo },
   } = useSelector<GlobalState, ShipmentState>((store) => store.shipment);
 
   const { register, fields } = useForm(
@@ -45,6 +47,11 @@ const DimensionsForm = ({ currentStep, next, previus }: StepActionsProps) => {
     ) {
       dispatch(saveDimensions({ weight, height, width, length }));
       next();
+      dispatch(
+        getRates(
+          createShipment({ weight, height, width, length, zipFrom, zipTo })
+        )
+      );
     }
   };
 

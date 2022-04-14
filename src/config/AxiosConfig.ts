@@ -1,13 +1,13 @@
 import http from "axios";
 
-const token= 'Fk09kz3ivwbM4sImxQbgd8AGekxAncWWghk4Otv2fiYt';
-const baseUrl= 'https://api-demo.skydropx.com';
+const token = 'Fk09kz3ivwbM4sImxQbgd8AGekxAncWWghk4Otv2fiYt';
+const baseUrl = 'https://api-demo.skydropx.com/v1';
 
 const axiosConfig = http.create({
     baseURL: `${baseUrl}`,
-    headers:{
+    headers: {
         Authorization: `Token token=${token}`,
-        "Content-Type":"application/json",  
+        "Content-Type": "application/json",
     }
 });
 

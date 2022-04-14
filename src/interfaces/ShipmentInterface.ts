@@ -12,7 +12,7 @@ export interface Address {
     province: string,
     city: string,
     name: string,
-    zip: number,
+    zip: string,
     country: string,
     address1: string
     company: string,
@@ -29,7 +29,7 @@ export interface Parcel {
     length: number
 }
 
-export interface ShipmentBody {
+export interface ShipmentBodyReq {
     address_from: Address;
     address_to: Address;
     parcels: Parcel[];

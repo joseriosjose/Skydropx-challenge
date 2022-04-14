@@ -1,10 +1,11 @@
 import axiosConfig from "config/AxiosConfig"
-import { ShipmentBody } from "interfaces/ShipmentInterface"
+import { ShipmentBodyReq } from "interfaces/ShipmentInterface"
+import { ShipmentResponse } from "interfaces/ShipmentResponseInterface";
 
 
-export const createShipment = async (Shipmentbody: ShipmentBody) => {
-    const { data } = await axiosConfig.post('/shipments', Shipmentbody);
-    return data
+export const createShipment = async (Shipmentbody: ShipmentBodyReq) => {
+    const { data } = await axiosConfig.post<ShipmentResponse>('/shipments', Shipmentbody);
+    return data.included?.filter(({ type }) => type === "rates")
 }
 
 export const createLabel = async (rate_id: number) => {
