@@ -2,7 +2,7 @@ import { Attributes } from 'interfaces/LabelResponseInterface';
 import { Included } from 'interfaces/ShipmentResponseInterface';
 import {
     SAVE_DIRECTIONS, SAVE_DIMENSIONS,
-    SAVE_RATES, SET_LOADING, SAVE_LABEL, SAVE_DELIVERY, SET_ERROR
+    SAVE_RATES, SET_LOADING, SAVE_LABEL, SAVE_DELIVERY, SET_ERROR, RESET_FORM
 } from '../types/Shipments.types';
 
 
@@ -40,4 +40,7 @@ export const saveLabel = (label: Attributes) => ({
 export const setError = (error: string) => ({
     type: SET_ERROR,
     payload: error
+})
+export const resetForm = () => ({
+    type: RESET_FORM,
 })

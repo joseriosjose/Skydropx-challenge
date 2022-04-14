@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useMemo } from "react";
 import { ParcelPreview, StepActions } from "components";
 import { Grid } from "@mui/material";
 import Accordion from "@mui/material/Accordion";
@@ -15,20 +15,22 @@ import { useDispatch, useSelector } from "react-redux";
 import { GlobalState } from "_redux";
 import { ShipmentState } from "_redux/reducers/Shipment.reducer";
 import { createShipment } from "utils/CreateShipmentUtil";
-import { saveDelivery } from "../../_redux/actions/Shipment.actions";
+import { saveDelivery, saveRates } from "../../_redux/actions/Shipment.actions";
 import { getLabel } from "../../_redux/thunks/Shipment.thunk";
+import { Included } from "../../interfaces/ShipmentResponseInterface";
 
 const DeliveryOptions = ({
   currentStep,
-  next,
   previus,
   stepSize,
+  reset,
 }: StepActionsProps) => {
   const dispatch = useDispatch();
   const {
     informationParcel: { weight, height, width, length, zipFrom, zipTo },
     rates,
     selectedDelivery,
+    loading,
   } = useSelector<GlobalState, ShipmentState>((store) => store.shipment);
 
   const { address_from, address_to, parcels } = createShipment({
@@ -40,13 +42,22 @@ const DeliveryOptions = ({
     zipTo,
   });
   const handleSelected = (id: string) => {
-    console.log(id);
     dispatch(saveDelivery(id));
   };
 
   const handleNext = () => {
     dispatch(getLabel(Number(selectedDelivery)));
   };
+
+  const handlePrevius = () => {
+    dispatch(saveDelivery(""));
+    dispatch(saveRates([] as Included[]));
+    previus();
+  };
+
+  const VALID_DELIVERY = useMemo(() => {
+    return Boolean(selectedDelivery);
+  }, [selectedDelivery]);
 
   return (
     <Fragment>
@@ -85,12 +96,25 @@ const DeliveryOptions = ({
             </Grid>
           ))}
         </Grid>
+        {rates.length === 0 && !loading && (
+          <>
+            <Typography variant="overline" textAlign="center">
+              No se encontraron paqueterias disponibles con tus criterios de
+              busqueda
+            </Typography>
+            <Typography variant="overline" textAlign="center">
+              intenta ingresando nuevos datos.
+            </Typography>
+          </>
+        )}
       </StepContainerWrapper>
       <StepActions
+        reset={reset}
+        enabled={VALID_DELIVERY}
         stepSize={stepSize}
         currentStep={currentStep}
         next={handleNext}
-        previus={previus}
+        previus={handlePrevius}
       />
     </Fragment>
   );

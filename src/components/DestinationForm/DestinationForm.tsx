@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useMemo } from "react";
 import FlightTakeoffIcon from "@mui/icons-material/FlightTakeoff";
 import FlightLandIcon from "@mui/icons-material/FlightLand";
 import { Input } from "components";
@@ -20,6 +20,7 @@ const DestinationForm = ({
   next,
   previus,
   stepSize,
+  reset,
 }: StepActionsProps) => {
   const dispatch = useDispatch();
   const {
@@ -39,6 +40,11 @@ const DestinationForm = ({
     }
   };
 
+  const VALID_DIRECCIONS = useMemo(() => {
+    const { zip_from, zip_to } = fields;
+    return zip_from.length === 5 && zip_to.length === 5;
+  }, [fields]);
+
   return (
     <Fragment>
       <StepContainerWrapper>
@@ -56,6 +62,8 @@ const DestinationForm = ({
         />
       </StepContainerWrapper>
       <StepActions
+        reset={reset}
+        enabled={VALID_DIRECCIONS}
         stepSize={stepSize}
         currentStep={currentStep}
         next={handleNext}

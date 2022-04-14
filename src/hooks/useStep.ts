@@ -20,11 +20,18 @@ const useStep = (steps: number) => {
         },
         [currentStep],
     )
+    const reset = useCallback(
+        () => {
+            setcurrentStep(0)
+        },
+        [],
+    )
 
     return {
         next,
         previus,
-        currentStep
+        currentStep,
+        reset
     }
 }
 

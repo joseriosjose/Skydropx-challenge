@@ -7,9 +7,11 @@ import { DestinationForm, DimensionsForm, DeliveryOptions } from "components";
 import useStep from "hooks/useStep";
 import { StepsHeaders, StepTitleMovilWrapper } from "./StepFormStyles";
 import { Backdrop, CircularProgress } from "@mui/material";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { GlobalState } from "_redux";
 import { ShipmentState } from "_redux/reducers/Shipment.reducer";
+import { saveLabel } from "../../_redux/actions/Shipment.actions";
+import { Attributes } from "interfaces/LabelResponseInterface";
 
 const steps = [
   { id: 0, icono: MapIcon, texto: "destino", subTitle: "Datos de envio" },
@@ -28,8 +30,8 @@ const steps = [
 ];
 
 const StepForm = () => {
-  const { currentStep, next, previus } = useStep(steps.length);
-  const { loading, label } = useSelector<GlobalState, ShipmentState>(
+  const { currentStep, next, previus, reset } = useStep(steps.length);
+  const { label } = useSelector<GlobalState, ShipmentState>(
     (store) => store.shipment
   );
 
@@ -72,6 +74,8 @@ const StepForm = () => {
         (Component, index) =>
           index === currentStep ? (
             <Component
+              enabled
+              reset={reset}
               stepSize={steps.length}
               currentStep={currentStep}
               next={next}

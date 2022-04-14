@@ -2,7 +2,7 @@ import { Included } from "interfaces/ShipmentResponseInterface";
 import { Attributes } from "interfaces/LabelResponseInterface";
 import {
     SAVE_DELIVERY, SAVE_DIMENSIONS, SAVE_DIRECTIONS,
-    SAVE_RATES, SET_LOADING, SAVE_LABEL, SET_ERROR
+    SAVE_RATES, SET_LOADING, SAVE_LABEL, SET_ERROR, RESET_FORM
 } from "_redux/types/Shipments.types";
 
 
@@ -23,9 +23,9 @@ const defaultState = {
 }
 
 type ActionType = {
-    payload: Object | string | boolean;
+    payload: Object | string | boolean | null;
     type: typeof SAVE_DELIVERY | typeof SAVE_DIMENSIONS | typeof SAVE_DIRECTIONS
-    | typeof SAVE_RATES | typeof SET_LOADING | typeof SAVE_LABEL | typeof SET_ERROR
+    | typeof SAVE_RATES | typeof SET_LOADING | typeof SAVE_LABEL | typeof SET_ERROR | typeof RESET_FORM
 }
 
 export default function Shipment(state = defaultState, { payload, type }: ActionType) {
@@ -58,7 +58,8 @@ export default function Shipment(state = defaultState, { payload, type }: Action
             return {
                 ...state, error: payload as string,
             }
-
+        case RESET_FORM:
+            return defaultState
 
         default:
             return state

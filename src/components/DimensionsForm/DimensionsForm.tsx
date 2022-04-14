@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useMemo } from "react";
 import FlightTakeoffIcon from "@mui/icons-material/FlightTakeoff";
 import FlightLandIcon from "@mui/icons-material/FlightLand";
 import { Input, StepActions } from "components";
@@ -60,6 +60,16 @@ const DimensionsForm = ({
     }
   };
 
+  const VALID_DIMENSIONS = useMemo(() => {
+    const { weight, height, width, length } = fields;
+    return (
+      weight.length > 0 &&
+      height.length > 0 &&
+      width.length > 0 &&
+      length.length > 0
+    );
+  }, [fields]);
+
   return (
     <Fragment>
       <StepContainerWrapper>
@@ -99,6 +109,7 @@ const DimensionsForm = ({
         </Grid>
       </StepContainerWrapper>
       <StepActions
+        enabled={VALID_DIMENSIONS}
         stepSize={stepSize}
         currentStep={currentStep}
         next={handleNext}
