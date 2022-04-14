@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from "react";
-import { ParcelPreview } from "components";
+import { ParcelPreview, StepActions } from "components";
 import { Grid } from "@mui/material";
 import Accordion from "@mui/material/Accordion";
 import Typography from "@mui/material/Typography";
@@ -10,6 +10,8 @@ import {
   AccordionDetailsWrapper,
   AccordionSummary,
 } from "./DeliveryOptionsStyles";
+import { StepActionsProps } from "interfaces/StepPropsTypes";
+import { StepContainerWrapper } from "components/StepForm/StepFormStyles";
 
 const shipmentJson = {
   address_from: {
@@ -50,7 +52,7 @@ const shipmentJson = {
   },
 };
 
-const DeliveryOptions = () => {
+const DeliveryOptions = ({ currentStep, next, previus }: StepActionsProps) => {
   const { address_from, address_to, parcels } = shipmentJson;
   const parcel = parcels[0];
 
@@ -61,40 +63,43 @@ const DeliveryOptions = () => {
 
   return (
     <Fragment>
-      <Accordion defaultExpanded elevation={0}>
-        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography variant="overline">Detalle del paquete</Typography>
-        </AccordionSummary>
-        <AccordionDetailsWrapper>
-          <Grid container spacing={2}>
-            <ParcelPreview
-              address_from={address_from}
-              address_to={address_to}
-              parcel={parcel}
-            />
-          </Grid>
-        </AccordionDetailsWrapper>
-      </Accordion>
-      <Typography variant="overline">Paqueteria</Typography>
-      <Grid container spacing={2}>
-        {deliveryOptions?.map(({ id, attributes }) => (
-          <Grid item xs={6} md={4} key={id}>
-            <DeliveryItem
-              key={`opcion${id}`}
-              provider={attributes?.provider as string}
-              service_level={attributes.service_level_name as string}
-              days={attributes.days as number}
-              pricing={attributes.total_pricing as string}
-              currency={attributes.currency_local as string}
-              selected={deliverySelected === id}
-              onClick={() => {
-                setdeliverySelected(id);
-              }}
-              typechip="default"
-            />
-          </Grid>
-        ))}
-      </Grid>
+      <StepContainerWrapper>
+        <Accordion defaultExpanded elevation={0}>
+          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+            <Typography variant="overline">Detalle del paquete</Typography>
+          </AccordionSummary>
+          <AccordionDetailsWrapper>
+            <Grid container spacing={2}>
+              <ParcelPreview
+                address_from={address_from}
+                address_to={address_to}
+                parcel={parcel}
+              />
+            </Grid>
+          </AccordionDetailsWrapper>
+        </Accordion>
+        <Typography variant="overline">Paqueteria</Typography>
+        <Grid container spacing={2}>
+          {deliveryOptions?.map(({ id, attributes }) => (
+            <Grid item xs={6} md={4} key={id}>
+              <DeliveryItem
+                key={`opcion${id}`}
+                provider={attributes?.provider as string}
+                service_level={attributes.service_level_name as string}
+                days={attributes.days as number}
+                pricing={attributes.total_pricing as string}
+                currency={attributes.currency_local as string}
+                selected={deliverySelected === id}
+                onClick={() => {
+                  setdeliverySelected(id);
+                }}
+                typechip="default"
+              />
+            </Grid>
+          ))}
+        </Grid>
+      </StepContainerWrapper>
+      <StepActions currentStep={currentStep} next={next} previus={previus} />
     </Fragment>
   );
 };

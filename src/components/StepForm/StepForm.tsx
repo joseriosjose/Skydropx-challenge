@@ -1,18 +1,11 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment } from "react";
 import StepHeader from "components/StepHeader";
 import MapIcon from "@mui/icons-material/Map";
 import InventoryIcon from "@mui/icons-material/Inventory";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
-import { Button } from "components";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { DestinationForm, DimensionsForm, DeliveryOptions } from "components";
 import useStep from "hooks/useStep";
-import {
-  StepsHeaders,
-  StepTitleMovilWrapper,
-  StepContainerWrapper,
-  StepActionsWrapper,
-} from "./StepFormStyles";
+import { StepsHeaders, StepTitleMovilWrapper } from "./StepFormStyles";
 
 const steps = [
   { id: 0, icono: MapIcon, texto: "destino", subTitle: "Datos de envio" },
@@ -31,11 +24,7 @@ const steps = [
 ];
 
 const StepForm = () => {
-  const { currentStep, Component, next, previus } = useStep([
-    DestinationForm,
-    DimensionsForm,
-    DeliveryOptions,
-  ]);
+  const { currentStep, next, previus } = useStep(steps.length);
 
   return (
     <Fragment>
@@ -62,21 +51,17 @@ const StepForm = () => {
         {steps.find((step) => step.id === currentStep)?.subTitle}
       </StepTitleMovilWrapper>
 
-      <StepContainerWrapper>
-        <Component />
-      </StepContainerWrapper>
-      <StepActionsWrapper>
-        {currentStep !== 0 && (
-          <Button buttonType="secondary" text="Regresar" onClick={previus} />
-        )}
-        <Button
-          buttonType="primary"
-          text="Continuar"
-          size="large"
-          onClick={next}
-          endIcon={<ArrowForwardIosIcon />}
-        />
-      </StepActionsWrapper>
+      {[DestinationForm, DimensionsForm, DeliveryOptions].map(
+        (Component, index) =>
+          index === currentStep ? (
+            <Component
+              currentStep={currentStep}
+              next={next}
+              previus={previus}
+              key={index}
+            />
+          ) : null
+      )}
     </Fragment>
   );
 };

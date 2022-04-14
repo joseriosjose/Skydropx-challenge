@@ -1,9 +1,7 @@
-import React, { useState, useCallback } from 'react'
+import { useState, useCallback } from 'react'
 
-type StepType = () => JSX.Element
-
-const useStep = (steps: StepType[]) => {
-    const size = steps.length
+const useStep = (steps: number) => {
+    const size = steps
     const [currentStep, setcurrentStep] = useState(0);
 
     const next = useCallback(
@@ -24,7 +22,6 @@ const useStep = (steps: StepType[]) => {
     )
 
     return {
-        Component: steps[currentStep],
         next,
         previus,
         currentStep

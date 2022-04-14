@@ -24,15 +24,6 @@ export const StepContainerWrapper = styled("div")(({ theme }) => ({
   },
 }));
 
-export const StepActionsWrapper = styled("div")(({ theme }) => ({
-  display: "flex",
-  flexWrap: "wrap",
-  justifyContent: "flex-end",
-  gap: 25,
-  marginRight: theme.spacing(2),
-  marginLeft: theme.spacing(2),
-}));
-
 export const StepTitleMovilWrapper = styled(Typography)(({ theme }) => ({
   display: "none",
   [(theme as Theme).breakpoints.down("md")]: {

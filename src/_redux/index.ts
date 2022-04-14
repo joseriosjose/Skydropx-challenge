@@ -2,7 +2,7 @@ import { applyMiddleware, compose, createStore, combineReducers } from "redux";
 import thunk from "redux-thunk";
 import shipment from "./reducers/Shipment.reducer";
 
-const store = createStore(
+const storeGlobal = createStore(
     combineReducers({ shipment }),
     compose(
         applyMiddleware(thunk),
@@ -13,6 +13,6 @@ const store = createStore(
     )
 );
 
-export type RootState = ReturnType<typeof store.getState>;
+export type GlobalState = ReturnType<typeof storeGlobal.getState>;
 
-export default store;
+export default storeGlobal;
