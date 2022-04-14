@@ -1,32 +1,15 @@
 import React from "react";
-import { styled, Theme } from "@mui/material/styles";
-import { SvgIcon, Typography } from "@mui/material";
-import TextField from "@mui/material/TextField";
+import { SvgIcon } from "@mui/material";
 import { StandardTextFieldProps } from "@mui/material/TextField";
+import {
+  ContainerInputWrapper,
+  TitleInputWrapper,
+  InputWrapper,
+} from "./InputStyles";
 
 export interface InputWrapperProps extends StandardTextFieldProps {
   icon: typeof SvgIcon;
 }
-
-const InputWrapper = styled(TextField)(({ theme }) => ({
-  [`& fieldset`]: {
-    borderRadius: 30,
-  },
-}));
-
-const ContainerInputWrapper = styled("div")(({ theme }) => ({
-  svg: {
-    verticalAlign: "middle",
-    color: theme.palette.primary.main,
-    margin: 10,
-    display: "inline-block",
-  },
-}));
-
-const TitleInputWrapper = styled(Typography)(({ theme }) => ({
-  display: "inline-block",
-  color: "#898791",
-}));
 
 const Input = ({
   label,

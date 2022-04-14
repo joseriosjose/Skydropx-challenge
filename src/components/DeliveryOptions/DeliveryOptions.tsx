@@ -2,16 +2,14 @@ import React, { Fragment, useState } from "react";
 import { ParcelPreview } from "components";
 import { Grid } from "@mui/material";
 import Accordion from "@mui/material/Accordion";
-import MuiAccordionSummary, {
-  AccordionSummaryProps,
-} from "@mui/material/AccordionSummary";
-import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { styled } from "@mui/material/styles";
-import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import { included } from "./rates";
 import DeliveryItem from "../DeliveryItem/DeliveryItem";
+import {
+  AccordionDetailsWrapper,
+  AccordionSummary,
+} from "./DeliveryOptionsStyles";
 
 const shipmentJson = {
   address_from: {
@@ -51,27 +49,6 @@ const shipmentJson = {
     contents: "Hola",
   },
 };
-const AccordionDetailsWrapper = styled(AccordionDetails)(({ theme }) => ({
-  marginTop: 10,
-  padding: "8px 8px 16px 16px",
-}));
-const AccordionSummary = styled((props: AccordionSummaryProps) => (
-  <MuiAccordionSummary
-    expandIcon={<ArrowBackIosIcon sx={{ fontSize: "0.9rem" }} />}
-    {...props}
-  />
-))(({ theme }) => ({
-  flexDirection: "row-reverse",
-  "& .MuiAccordionSummary-expandIconWrapper.Mui-expanded": {
-    transform: "rotate(360deg)",
-  },
-  "& .MuiAccordionSummary-expandIconWrapper": {
-    transform: "rotate(270deg)",
-    color: theme.palette.primary.main,
-  },
-  padding: 0,
-  color: "#04142a",
-}));
 
 const DeliveryOptions = () => {
   const { address_from, address_to, parcels } = shipmentJson;

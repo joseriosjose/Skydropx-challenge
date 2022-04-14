@@ -1,22 +1,13 @@
 import React from "react";
-import { Grid, Typography, SvgIcon } from "@mui/material";
-import { styled } from "@mui/material/styles";
+import { Typography, SvgIcon } from "@mui/material";
 import { AddressType } from "./../ParcelPreview/ParcelPreview";
+import { TitleInputWrapper } from "./ParcelAddressStyles";
 
 export type ParcelAddressProps = {
   address: AddressType;
   indicator: string;
   icon: typeof SvgIcon;
 };
-
-const TitleInputWrapper = styled(Grid)(({ theme }) => ({
-  display: "flex",
-  color: "#4c4949",
-  svg: {
-    margin: "30px 15px 15px 15px",
-    color: theme.palette.primary.main,
-  },
-}));
 
 const ParcelAddress = ({
   indicator,
