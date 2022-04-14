@@ -6,6 +6,10 @@ import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import { DestinationForm, DimensionsForm, DeliveryOptions } from "components";
 import useStep from "hooks/useStep";
 import { StepsHeaders, StepTitleMovilWrapper } from "./StepFormStyles";
+import { Backdrop, CircularProgress } from "@mui/material";
+import { useSelector } from "react-redux";
+import { GlobalState } from "_redux";
+import { ShipmentState } from "_redux/reducers/Shipment.reducer";
 
 const steps = [
   { id: 0, icono: MapIcon, texto: "destino", subTitle: "Datos de envio" },
@@ -25,6 +29,9 @@ const steps = [
 
 const StepForm = () => {
   const { currentStep, next, previus } = useStep(steps.length);
+  const { loading } = useSelector<GlobalState, ShipmentState>(
+    (store) => store.shipment
+  );
 
   return (
     <Fragment>
@@ -63,6 +70,12 @@ const StepForm = () => {
             />
           ) : null
       )}
+      <Backdrop
+        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={loading}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
     </Fragment>
   );
 };

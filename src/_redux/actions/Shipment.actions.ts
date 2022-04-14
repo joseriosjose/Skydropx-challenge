@@ -1,5 +1,6 @@
+import { Attributes } from 'interfaces/LabelResponseInterface';
 import { Included } from 'interfaces/ShipmentResponseInterface';
-import { SAVE_DIRECTIONS, SAVE_DIMENSIONS, SAVE_RATES, SET_LOADING } from '../types/Shipments.types';
+import { SAVE_DIRECTIONS, SAVE_DIMENSIONS, SAVE_RATES, SET_LOADING, SAVE_LABEL, SAVE_DELIVERY } from '../types/Shipments.types';
 
 
 export const saveDirections = ({ zipFrom, zipTo }: { zipFrom: string, zipTo: string }) => ({
@@ -18,7 +19,7 @@ export const saveDimensions = ({ weight, height, width, length }: { weight: stri
 })
 
 export const saveDelivery = (id: string) => ({
-    type: SAVE_DIMENSIONS,
+    type: SAVE_DELIVERY,
     payload: id
 })
 
@@ -29,4 +30,8 @@ export const saveRates = (rates: Included[]) => ({
 export const setLoading = (loading: boolean) => ({
     type: SET_LOADING,
     payload: loading
+})
+export const saveLabel = (label: Attributes) => ({
+    type: SAVE_LABEL,
+    payload: label
 })

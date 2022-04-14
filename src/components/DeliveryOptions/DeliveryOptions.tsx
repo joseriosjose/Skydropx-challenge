@@ -1,10 +1,9 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment } from "react";
 import { ParcelPreview, StepActions } from "components";
-import { Box, CircularProgress, Grid } from "@mui/material";
+import { Grid } from "@mui/material";
 import Accordion from "@mui/material/Accordion";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { included } from "./rates";
 import DeliveryItem from "../DeliveryItem/DeliveryItem";
 import {
   AccordionDetailsWrapper,
@@ -12,10 +11,12 @@ import {
 } from "./DeliveryOptionsStyles";
 import { StepActionsProps } from "interfaces/StepPropsTypes";
 import { StepContainerWrapper } from "components/StepForm/StepFormStyles";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { GlobalState } from "_redux";
 import { ShipmentState } from "_redux/reducers/Shipment.reducer";
 import { createShipment } from "utils/CreateShipmentUtil";
+import { saveDelivery } from "../../_redux/actions/Shipment.actions";
+import { getLabel } from "../../_redux/thunks/Shipment.thunk";
 
 const DeliveryOptions = ({
   currentStep,
@@ -23,10 +24,11 @@ const DeliveryOptions = ({
   previus,
   stepSize,
 }: StepActionsProps) => {
+  const dispatch = useDispatch();
   const {
     informationParcel: { weight, height, width, length, zipFrom, zipTo },
     rates,
-    loading,
+    selectedDelivery,
   } = useSelector<GlobalState, ShipmentState>((store) => store.shipment);
 
   const { address_from, address_to, parcels } = createShipment({
@@ -37,8 +39,14 @@ const DeliveryOptions = ({
     zipFrom,
     zipTo,
   });
+  const handleSelected = (id: string) => {
+    console.log(id);
+    dispatch(saveDelivery(id));
+  };
 
-  const [deliverySelected, setdeliverySelected] = useState("");
+  const handleNext = () => {
+    dispatch(getLabel(Number(selectedDelivery)));
+  };
 
   return (
     <Fragment>
@@ -59,35 +67,29 @@ const DeliveryOptions = ({
         </Accordion>
         <Typography variant="overline">Paqueteria</Typography>
         <Grid container spacing={2}>
-          {loading ? (
-            <Box sx={{ display: "flex" }}>
-              <CircularProgress />
-            </Box>
-          ) : (
-            rates?.map(({ id, attributes }) => (
-              <Grid item xs={6} md={4} key={id}>
-                <DeliveryItem
-                  key={`opcion${id}`}
-                  provider={attributes?.provider as string}
-                  service_level={attributes.service_level_name as string}
-                  days={attributes.days as number}
-                  pricing={attributes.total_pricing as string}
-                  currency={attributes.currency_local as string}
-                  selected={deliverySelected === id}
-                  onClick={() => {
-                    setdeliverySelected(id);
-                  }}
-                  typechip="default"
-                />
-              </Grid>
-            ))
-          )}
+          {rates?.map(({ id, attributes }) => (
+            <Grid item xs={6} md={4} key={id}>
+              <DeliveryItem
+                key={`opcion${id}`}
+                provider={attributes?.provider as string}
+                service_level={attributes.service_level_name as string}
+                days={attributes.days as number}
+                pricing={attributes.total_pricing as string}
+                currency={attributes.currency_local as string}
+                selected={selectedDelivery === id}
+                onClick={() => {
+                  handleSelected(id);
+                }}
+                typechip="default"
+              />
+            </Grid>
+          ))}
         </Grid>
       </StepContainerWrapper>
       <StepActions
         stepSize={stepSize}
         currentStep={currentStep}
-        next={next}
+        next={handleNext}
         previus={previus}
       />
     </Fragment>
