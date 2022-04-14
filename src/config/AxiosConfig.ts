@@ -1,12 +1,11 @@
 import http from "axios";
 
-const token = 'Fk09kz3ivwbM4sImxQbgd8AGekxAncWWghk4Otv2fiYt';
-const baseUrl = 'https://api-demo.skydropx.com/v1';
+const { NEXT_PUBLIC_BASE_API, NEXT_PUBLIC_TOKEN } = process.env
 
 const axiosConfig = http.create({
-    baseURL: `${baseUrl}`,
+    baseURL: `${NEXT_PUBLIC_BASE_API}`,
     headers: {
-        Authorization: `Token token=${token}`,
+        Authorization: `Token token=${NEXT_PUBLIC_TOKEN}`,
         "Content-Type": "application/json",
     }
 });
