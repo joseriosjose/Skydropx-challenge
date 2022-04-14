@@ -1,7 +1,5 @@
 import React from "react";
-
 import { ComponentStory, ComponentMeta } from "@storybook/react";
-
 import DeliveryItem from "../components/DeliveryItem/DeliveryItem";
 import CustomThemeProvider from "../providers/CustomThemeProvider/CustomThemeProvider";
 import { DeliveryItemType } from "components/DeliveryItem/DeliveryItem";
@@ -11,6 +9,7 @@ const DeliveryItemWithTheme = ({ ...props }: DeliveryItemType) => (
     <DeliveryItem {...props} />
   </CustomThemeProvider>
 );
+
 export default {
   title: "DeliveryItem",
   component: DeliveryItemWithTheme,

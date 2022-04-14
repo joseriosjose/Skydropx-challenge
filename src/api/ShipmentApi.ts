@@ -8,6 +8,6 @@ export const createShipment = async (Shipmentbody: ShipmentBody) => {
 }
 
 export const createLabel = async (rate_id: number) => {
-    const { data } = await axiosConfig.post('/labels', { rate_id: 10834, label_format: "pdf" });
+    const { data } = await axiosConfig.post('/labels', { rate_id: rate_id, label_format: "pdf" });
     return data
 }
