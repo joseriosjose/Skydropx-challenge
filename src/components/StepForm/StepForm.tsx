@@ -6,12 +6,9 @@ import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import { DestinationForm, DimensionsForm, DeliveryOptions } from "components";
 import useStep from "hooks/useStep";
 import { StepsHeaders, StepTitleMovilWrapper } from "./StepFormStyles";
-import { Backdrop, CircularProgress } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { GlobalState } from "_redux";
 import { ShipmentState } from "_redux/reducers/Shipment.reducer";
-import { saveLabel } from "../../_redux/actions/Shipment.actions";
-import { Attributes } from "interfaces/LabelResponseInterface";
 
 const steps = [
   { id: 0, icono: MapIcon, texto: "destino", subTitle: "Datos de envio" },

@@ -1,4 +1,4 @@
-import { CardContent, CardHeader, Typography } from "@mui/material";
+import { CardContent, Typography } from "@mui/material";
 import React from "react";
 import Moment from "react-moment";
 import "moment/locale/es";

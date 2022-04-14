@@ -51,3 +51,14 @@ Faster.args = {
   currency: "MXN",
   typechip: "faster",
 };
+
+export const Cheaper = Template.bind({});
+
+Cheaper.args = {
+  provider: "provider",
+  service_level: "service_level",
+  days: 0,
+  pricing: "0",
+  currency: "MXN",
+  typechip: "cheaper",
+};

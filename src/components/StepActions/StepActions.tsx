@@ -1,5 +1,5 @@
 import { Button } from "components";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { StepActionsWrapper } from "./StepActionsStyles";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { StepActionsProps } from "interfaces/StepPropsTypes";
