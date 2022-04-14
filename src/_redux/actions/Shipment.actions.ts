@@ -1,5 +1,5 @@
 import { Included } from 'interfaces/ShipmentResponseInterface';
-import { SAVE_DIRECTIONS, SAVE_DIMENSIONS, SAVE_RATES } from '../types/Shipments.types';
+import { SAVE_DIRECTIONS, SAVE_DIMENSIONS, SAVE_RATES, SET_LOADING } from '../types/Shipments.types';
 
 
 export const saveDirections = ({ zipFrom, zipTo }: { zipFrom: string, zipTo: string }) => ({
@@ -25,4 +25,8 @@ export const saveDelivery = (id: string) => ({
 export const saveRates = (rates: Included[]) => ({
     type: SAVE_RATES,
     payload: rates
+})
+export const setLoading = (loading: boolean) => ({
+    type: SET_LOADING,
+    payload: loading
 })

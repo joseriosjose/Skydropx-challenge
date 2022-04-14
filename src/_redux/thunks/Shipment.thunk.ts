@@ -1,8 +1,11 @@
-import { createShipment } from "api/ShipmentApi"
+import * as ShipmentApi from "api/ShipmentApi"
 import { ShipmentBodyReq } from "interfaces/ShipmentInterface"
 import { saveRates } from "_redux/actions/Shipment.actions";
+import { setLoading } from '../actions/Shipment.actions';
 
 export const getRates = (shipmentBody: ShipmentBodyReq) => async (dispatch: Function) => {
-    const rates = await createShipment(shipmentBody);
+    dispatch(setLoading(true));
+    const rates = await ShipmentApi.createShipmentApi(shipmentBody);
     dispatch(saveRates(rates));
+    dispatch(setLoading(false));
 }

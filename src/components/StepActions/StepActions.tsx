@@ -4,7 +4,12 @@ import { StepActionsWrapper } from "./StepActionsStyles";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { StepActionsProps } from "interfaces/StepPropsTypes";
 
-const StepActions = ({ currentStep, next, previus }: StepActionsProps) => {
+const StepActions = ({
+  currentStep,
+  next,
+  previus,
+  stepSize,
+}: StepActionsProps) => {
   return (
     <StepActionsWrapper>
       {currentStep !== 0 && (
@@ -12,7 +17,7 @@ const StepActions = ({ currentStep, next, previus }: StepActionsProps) => {
       )}
       <Button
         buttonType="primary"
-        text="Continuar"
+        text={stepSize - 1 === currentStep ? "Generar guia" : "Continuar"}
         size="large"
         onClick={next}
         endIcon={<ArrowForwardIosIcon />}

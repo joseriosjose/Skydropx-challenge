@@ -15,7 +15,12 @@ import { GlobalState } from "_redux";
 
 const validator = handleOnlyNumber(5);
 
-const DestinationForm = ({ currentStep, next, previus }: StepActionsProps) => {
+const DestinationForm = ({
+  currentStep,
+  next,
+  previus,
+  stepSize,
+}: StepActionsProps) => {
   const dispatch = useDispatch();
   const {
     informationParcel: { zipFrom, zipTo },
@@ -51,6 +56,7 @@ const DestinationForm = ({ currentStep, next, previus }: StepActionsProps) => {
         />
       </StepContainerWrapper>
       <StepActions
+        stepSize={stepSize}
         currentStep={currentStep}
         next={handleNext}
         previus={previus}

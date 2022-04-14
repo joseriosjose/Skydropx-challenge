@@ -16,7 +16,12 @@ import { createShipment } from "utils/CreateShipmentUtil";
 
 const validator = handleOnlyNumber(3);
 
-const DimensionsForm = ({ currentStep, next, previus }: StepActionsProps) => {
+const DimensionsForm = ({
+  currentStep,
+  next,
+  previus,
+  stepSize,
+}: StepActionsProps) => {
   const dispatch = useDispatch();
   const {
     informationParcel: { weight, height, width, length, zipFrom, zipTo },
@@ -94,6 +99,7 @@ const DimensionsForm = ({ currentStep, next, previus }: StepActionsProps) => {
         </Grid>
       </StepContainerWrapper>
       <StepActions
+        stepSize={stepSize}
         currentStep={currentStep}
         next={handleNext}
         previus={previus}

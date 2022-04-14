@@ -3,7 +3,7 @@ import { ShipmentBodyReq } from "interfaces/ShipmentInterface"
 import { ShipmentResponse } from "interfaces/ShipmentResponseInterface";
 
 
-export const createShipment = async (Shipmentbody: ShipmentBodyReq) => {
+export const createShipmentApi = async (Shipmentbody: ShipmentBodyReq) => {
     const { data } = await axiosConfig.post<ShipmentResponse>('/shipments', Shipmentbody);
     return data.included?.filter(({ type }) => type === "rates")
 }

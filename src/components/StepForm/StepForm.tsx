@@ -55,6 +55,7 @@ const StepForm = () => {
         (Component, index) =>
           index === currentStep ? (
             <Component
+              stepSize={steps.length}
               currentStep={currentStep}
               next={next}
               previus={previus}
