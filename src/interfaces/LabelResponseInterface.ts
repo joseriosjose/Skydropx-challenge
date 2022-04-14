@@ -17,4 +17,5 @@ export interface Attributes {
     label_url: string;
     tracking_url_provider: string;
     rate_id: number;
+    error_message?: [{ message: string }];
 }

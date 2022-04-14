@@ -1,6 +1,10 @@
 import { Included } from "interfaces/ShipmentResponseInterface";
 import { Attributes } from "interfaces/LabelResponseInterface";
-import { SAVE_DELIVERY, SAVE_DIMENSIONS, SAVE_DIRECTIONS, SAVE_RATES, SET_LOADING, SAVE_LABEL } from "_redux/types/Shipments.types";
+import {
+    SAVE_DELIVERY, SAVE_DIMENSIONS, SAVE_DIRECTIONS,
+    SAVE_RATES, SET_LOADING, SAVE_LABEL, SET_ERROR
+} from "_redux/types/Shipments.types";
+
 
 const defaultState = {
     informationParcel: {
@@ -14,12 +18,14 @@ const defaultState = {
     selectedDelivery: '',
     rates: [] as Included[],
     loading: false,
-    label: {} as Attributes
+    label: {} as Attributes,
+    error: ''
 }
 
 type ActionType = {
     payload: Object | string | boolean;
-    type: typeof SAVE_DELIVERY | typeof SAVE_DIMENSIONS | typeof SAVE_DIRECTIONS | typeof SAVE_RATES | typeof SET_LOADING | typeof SAVE_LABEL
+    type: typeof SAVE_DELIVERY | typeof SAVE_DIMENSIONS | typeof SAVE_DIRECTIONS
+    | typeof SAVE_RATES | typeof SET_LOADING | typeof SAVE_LABEL | typeof SET_ERROR
 }
 
 export default function Shipment(state = defaultState, { payload, type }: ActionType) {
@@ -48,6 +54,11 @@ export default function Shipment(state = defaultState, { payload, type }: Action
             return {
                 ...state, label: payload as Attributes,
             }
+        case SET_ERROR:
+            return {
+                ...state, error: payload as string,
+            }
+
 
         default:
             return state

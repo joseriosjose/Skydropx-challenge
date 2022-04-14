@@ -45,10 +45,10 @@ const DimensionsForm = ({
   const handleNext = () => {
     const { weight, height, width, length } = fields;
     if (
-      validator(weight) &&
-      validator(height) &&
-      validator(width) &&
-      validator(length)
+      weight.length > 0 &&
+      height.length > 0 &&
+      width.length > 0 &&
+      length.length > 0
     ) {
       dispatch(saveDimensions({ weight, height, width, length }));
       next();

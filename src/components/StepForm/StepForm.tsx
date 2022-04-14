@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect, useRef } from "react";
 import StepHeader from "components/StepHeader";
 import MapIcon from "@mui/icons-material/Map";
 import InventoryIcon from "@mui/icons-material/Inventory";
@@ -29,9 +29,19 @@ const steps = [
 
 const StepForm = () => {
   const { currentStep, next, previus } = useStep(steps.length);
-  const { loading } = useSelector<GlobalState, ShipmentState>(
+  const { loading, label } = useSelector<GlobalState, ShipmentState>(
     (store) => store.shipment
   );
+
+  const labelRef = useRef<HTMLAnchorElement>();
+
+  useEffect(() => {
+    const { label_url } = label;
+    const labelA = labelRef.current as HTMLAnchorElement;
+    if (!label_url || !labelA) return;
+    labelA.href = label_url;
+    labelA.click();
+  }, [label]);
 
   return (
     <Fragment>
@@ -70,12 +80,12 @@ const StepForm = () => {
             />
           ) : null
       )}
-      <Backdrop
-        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={loading}
-      >
-        <CircularProgress color="inherit" />
-      </Backdrop>
+
+      <a
+        hidden
+        target="_blank"
+        ref={labelRef as React.LegacyRef<HTMLAnchorElement>}
+      />
     </Fragment>
   );
 };

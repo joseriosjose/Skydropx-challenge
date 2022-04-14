@@ -33,7 +33,7 @@ const DestinationForm = ({
 
   const handleNext = () => {
     const { zip_from, zip_to } = fields;
-    if (validator(zip_from) && validator(zip_to)) {
+    if (zip_from.length === 5 && zip_to.length === 5) {
       dispatch(saveDirections({ zipFrom: zip_from, zipTo: zip_to }));
       next();
     }
