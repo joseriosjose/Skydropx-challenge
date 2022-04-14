@@ -40,7 +40,7 @@ const StepActions = ({
 
   return (
     <StepActionsWrapper>
-      {currentStep !== 0 && (
+      {currentStep !== 0 && !label.label_url && (
         <Button buttonType="secondary" text="Regresar" onClick={previus} />
       )}
       <Button

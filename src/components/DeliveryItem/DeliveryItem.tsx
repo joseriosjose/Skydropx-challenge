@@ -4,6 +4,7 @@ import Moment from "react-moment";
 import "moment/locale/es";
 import {
   CaptionWrapper,
+  CardHeaderWrapper,
   CardWrapper,
   ChipWrapper,
   DeliveryContentWrapper,
@@ -17,7 +18,7 @@ export type DeliveryItemType = {
   pricing: string;
   currency: string;
   selected: boolean;
-  typechip: "better" | "default" | "faster";
+  typechip: "better" | "default" | "faster" | "cheaper";
   onClick: () => void;
 };
 
@@ -36,11 +37,19 @@ const DeliveryItem = ({
   return (
     <CardWrapper selected={selected} onClick={onClick} {...props}>
       {typechip !== "default" && (
-        <CardHeader
+        <CardHeaderWrapper
           action={
             <ChipWrapper
               typechip={typechip}
-              label={typechip === "better" ? "Recomendacion" : "Mas rapido"}
+              label={
+                typechip === "better"
+                  ? "Recomendacion"
+                  : typechip === "faster"
+                  ? "Mas rapido"
+                  : typechip === "cheaper"
+                  ? "Mas economico"
+                  : null
+              }
               data-testid="ChipTets-id"
             />
           }

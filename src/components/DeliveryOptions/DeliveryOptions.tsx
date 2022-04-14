@@ -44,10 +44,10 @@ const DeliveryOptions = ({
     zipTo,
   });
 
-  const [option, setOption] = React.useState("1");
+  const [option, setOption] = React.useState(1);
 
   const handleChange = (event: SelectChangeEvent) => {
-    setOption(event.target.value as string);
+    setOption(Number(event.target.value));
   };
 
   const handleSelected = (id: string) => {
@@ -68,6 +68,20 @@ const DeliveryOptions = ({
     return Boolean(selectedDelivery);
   }, [selectedDelivery]);
 
+  const rates_filters = useMemo(() => {
+    if (option === 2) {
+      return rates.sort((a, b) => a.attributes.days! - b.attributes.days!);
+    }
+    if (option === 3 || option === 1) {
+      return rates.sort(
+        (a, b) =>
+          Number(a.attributes.total_pricing)! -
+          Number(b.attributes.total_pricing)!
+      );
+    }
+    return rates;
+  }, [rates, option]);
+
   return (
     <Fragment>
       <StepContainerWrapper>
@@ -80,16 +94,20 @@ const DeliveryOptions = ({
           <Typography variant="overline">Paqueteria</Typography>
           <FormControl variant="standard">
             <InputLabel>Filtrar por</InputLabel>
-            <Select value={option} label="Filtrar por" onChange={handleChange}>
+            <Select
+              value={`${option}`}
+              label="Filtrar por"
+              onChange={handleChange}
+            >
               <MenuItem value={1}>Relevancia</MenuItem>
-              <MenuItem value={2}>Mas rapido</MenuItem>
-              <MenuItem value={3}>Mas economico</MenuItem>
+              <MenuItem value={2}>Velocidad</MenuItem>
+              <MenuItem value={3}>Economico</MenuItem>
             </Select>
           </FormControl>
         </ContainerFilterWrapper>
 
         <Grid container spacing={2}>
-          {rates?.map(({ id, attributes }) => (
+          {rates_filters?.map(({ id, attributes }, index) => (
             <Grid item xs={6} md={4} key={id}>
               <DeliveryItem
                 key={`opcion${id}`}
@@ -102,7 +120,15 @@ const DeliveryOptions = ({
                 onClick={() => {
                   handleSelected(id);
                 }}
-                typechip="default"
+                typechip={
+                  option === 1 && index === 0
+                    ? "better"
+                    : option === 2 && index === 0
+                    ? "faster"
+                    : option === 3 && index === 0
+                    ? "cheaper"
+                    : "default"
+                }
               />
             </Grid>
           ))}
