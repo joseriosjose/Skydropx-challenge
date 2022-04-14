@@ -1,14 +1,15 @@
 import React, { Fragment, useMemo } from "react";
 import { ParcelPreview, StepActions } from "components";
-import { Grid } from "@mui/material";
-import Accordion from "@mui/material/Accordion";
-import Typography from "@mui/material/Typography";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import DeliveryItem from "../DeliveryItem/DeliveryItem";
 import {
-  AccordionDetailsWrapper,
-  AccordionSummary,
-} from "./DeliveryOptionsStyles";
+  FormControl,
+  Grid,
+  InputLabel,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+} from "@mui/material";
+import Typography from "@mui/material/Typography";
+import DeliveryItem from "../DeliveryItem/DeliveryItem";
 import { StepActionsProps } from "interfaces/StepPropsTypes";
 import { StepContainerWrapper } from "components/StepForm/StepFormStyles";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,6 +19,7 @@ import { createShipment } from "utils/CreateShipmentUtil";
 import { saveDelivery, saveRates } from "../../_redux/actions/Shipment.actions";
 import { getLabel } from "../../_redux/thunks/Shipment.thunk";
 import { Included } from "../../interfaces/ShipmentResponseInterface";
+import { ContainerFilterWrapper } from "./DeliveryOptionsStyles";
 
 const DeliveryOptions = ({
   currentStep,
@@ -41,6 +43,13 @@ const DeliveryOptions = ({
     zipFrom,
     zipTo,
   });
+
+  const [option, setOption] = React.useState("1");
+
+  const handleChange = (event: SelectChangeEvent) => {
+    setOption(event.target.value as string);
+  };
+
   const handleSelected = (id: string) => {
     dispatch(saveDelivery(id));
   };
@@ -62,21 +71,23 @@ const DeliveryOptions = ({
   return (
     <Fragment>
       <StepContainerWrapper>
-        <Accordion defaultExpanded elevation={0}>
-          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography variant="overline">Detalle del paquete</Typography>
-          </AccordionSummary>
-          <AccordionDetailsWrapper>
-            <Grid container spacing={2}>
-              <ParcelPreview
-                address_from={address_from}
-                address_to={address_to}
-                parcel={parcels[0]}
-              />
-            </Grid>
-          </AccordionDetailsWrapper>
-        </Accordion>
-        <Typography variant="overline">Paqueteria</Typography>
+        <ParcelPreview
+          address_from={address_from}
+          address_to={address_to}
+          parcel={parcels[0]}
+        />
+        <ContainerFilterWrapper>
+          <Typography variant="overline">Paqueteria</Typography>
+          <FormControl variant="standard">
+            <InputLabel>Filtrar por</InputLabel>
+            <Select value={option} label="Filtrar por" onChange={handleChange}>
+              <MenuItem value={1}>Relevancia</MenuItem>
+              <MenuItem value={2}>Mas rapido</MenuItem>
+              <MenuItem value={3}>Mas economico</MenuItem>
+            </Select>
+          </FormControl>
+        </ContainerFilterWrapper>
+
         <Grid container spacing={2}>
           {rates?.map(({ id, attributes }) => (
             <Grid item xs={6} md={4} key={id}>

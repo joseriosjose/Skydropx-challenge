@@ -29,3 +29,7 @@ export const AccordionSummary = styled((props: AccordionSummaryProps) => (
   padding: 0,
   color: "#04142a",
 }));
+export const ContainerFilterWrapper = styled("div")(({ theme }) => ({
+  display: "flex",
+  justifyContent: "space-between",
+}));

@@ -21,6 +21,7 @@ const DimensionsForm = ({
   next,
   previus,
   stepSize,
+  reset,
 }: StepActionsProps) => {
   const dispatch = useDispatch();
   const {
@@ -109,6 +110,7 @@ const DimensionsForm = ({
         </Grid>
       </StepContainerWrapper>
       <StepActions
+        reset={reset}
         enabled={VALID_DIMENSIONS}
         stepSize={stepSize}
         currentStep={currentStep}
