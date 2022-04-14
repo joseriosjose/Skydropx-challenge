@@ -1,6 +1,4 @@
 import React, { Fragment, useMemo } from "react";
-import FlightTakeoffIcon from "@mui/icons-material/FlightTakeoff";
-import FlightLandIcon from "@mui/icons-material/FlightLand";
 import { Input, StepActions } from "components";
 import { Grid } from "@mui/material";
 import useForm from "hooks/useForm";
@@ -13,6 +11,10 @@ import { ShipmentState } from "_redux/reducers/Shipment.reducer";
 import { saveDimensions } from "../../_redux/actions/Shipment.actions";
 import { getRates } from "_redux/thunks/Shipment.thunk";
 import { createShipment } from "utils/CreateShipmentUtil";
+import HeightIcon from "@mui/icons-material/Height";
+import OpenInFullIcon from "@mui/icons-material/OpenInFull";
+import ScaleIcon from "@mui/icons-material/Scale";
+import StraightenIcon from "@mui/icons-material/Straighten";
 
 const validator = handleOnlyNumber(3);
 
@@ -77,7 +79,7 @@ const DimensionsForm = ({
         <Grid container spacing={{ xs: 1, md: 3 }}>
           <Grid item xs={6}>
             <Input
-              icon={FlightTakeoffIcon}
+              icon={StraightenIcon}
               label="Largo (cm)"
               placeholder="Ej. 30"
               {...register("length")}
@@ -85,7 +87,7 @@ const DimensionsForm = ({
           </Grid>
           <Grid item xs={6}>
             <Input
-              icon={FlightLandIcon}
+              icon={OpenInFullIcon}
               label="Ancho (cm)"
               placeholder="Ej. 20"
               {...register("width")}
@@ -93,7 +95,7 @@ const DimensionsForm = ({
           </Grid>
           <Grid item xs={6}>
             <Input
-              icon={FlightTakeoffIcon}
+              icon={HeightIcon}
               label="Alto (cm)"
               placeholder="Ej. 40"
               {...register("height")}
@@ -101,7 +103,7 @@ const DimensionsForm = ({
           </Grid>
           <Grid item xs={6}>
             <Input
-              icon={FlightTakeoffIcon}
+              icon={ScaleIcon}
               label="Peso (Kg)"
               placeholder="Ej. 60"
               {...register("weight")}
