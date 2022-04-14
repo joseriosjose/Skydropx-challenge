@@ -37,3 +37,5 @@ export default function Shipment(state = defaultState, { payload, type }: Action
     }
 
 }
+
+export type ShipmentState = typeof defaultState

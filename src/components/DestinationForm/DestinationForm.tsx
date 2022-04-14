@@ -8,11 +8,32 @@ import { StepActions } from "components";
 import { StepContainerWrapper } from "../StepForm/StepFormStyles";
 import { StepActionsProps } from "interfaces/StepPropsTypes";
 
+import { useDispatch, useSelector } from "react-redux";
+import { saveDirections } from "_redux/actions/Shipment.actions";
+import { ShipmentState } from "_redux/reducers/Shipment.reducer";
+import { GlobalState } from "_redux";
+
+const validator = handleOnlyNumber(5);
+
 const DestinationForm = ({ currentStep, next, previus }: StepActionsProps) => {
+  const dispatch = useDispatch();
+  const {
+    informationParcel: { zipFrom, zipTo },
+  } = useSelector<GlobalState, ShipmentState>((store) => store.shipment);
+
   const { fields, register } = useForm(
-    { zip_from: "", zip_to: "" },
-    { zip_to: handleOnlyNumber(5), zip_from: handleOnlyNumber(5) }
+    { zip_from: zipFrom, zip_to: zipTo },
+    { zip_to: validator, zip_from: validator }
   );
+
+  const handleNext = () => {
+    const { zip_from, zip_to } = fields;
+    if (validator(zip_from) && validator(zip_to)) {
+      dispatch(saveDirections({ zipFrom: zip_from, zipTo: zip_to }));
+      next();
+    }
+  };
+
   return (
     <Fragment>
       <StepContainerWrapper>
@@ -29,7 +50,11 @@ const DestinationForm = ({ currentStep, next, previus }: StepActionsProps) => {
           {...register("zip_to")}
         />
       </StepContainerWrapper>
-      <StepActions currentStep={currentStep} next={next} previus={previus} />
+      <StepActions
+        currentStep={currentStep}
+        next={handleNext}
+        previus={previus}
+      />
     </Fragment>
   );
 };
